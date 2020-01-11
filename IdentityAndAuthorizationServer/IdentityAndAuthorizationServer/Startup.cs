@@ -42,7 +42,7 @@ namespace IdentityAndAuthorizationServer
                 .AddEntityFrameworkStores<AuthenticationContext>();
 
             services.Configure<IdentityOptions>(options=> {
-                options.Password.RequiredLength=8;
+                options.Password.RequiredLength=6;
             });
             services.AddCors(options =>
             {
