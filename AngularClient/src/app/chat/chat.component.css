@@ -1,0 +1,71 @@
+
+
+.inBox {
+  border: 1px solid #c4c4c4;
+  clear: both;
+  overflow: hidden;
+}
+.messageBox p {
+  background: #3c0daa none repeat scroll 0 0;
+  border-radius: 3px;
+  color: #e7dbdb;
+  font-size: 14px;
+  margin: auto;
+  padding: 5px 10px 5px 12px;
+  width: 70%;
+}
+
+.time_date {
+  color: black;
+  display: block;
+  font-size: 12px;
+  margin: 0px 0 5px;
+}
+
+.sender {
+  color: rgb(20, 7, 7);
+  display: block;
+  font-size: 16px;
+  margin: 5px;
+}
+
+.received_withd_msg {
+  width: 96%;
+  margin: auto;
+}
+
+.input_msg_write input {
+  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+  border: medium none;
+  color: #0e0a0a;
+  font-size: 15px;
+  min-height: 48px;
+  width: 100%;
+}
+
+.type_msg {
+  border-top: 1px solid #e7dbdb;;
+  position: relative;
+}
+
+.msg_send_btn {
+  background: #210661 none repeat scroll 0 0;
+  border: medium none;
+  color: #e7dbdb;;
+  cursor: pointer;
+  font-size: 17px;
+  height: 33px;
+  position: absolute;
+  right: 0;
+  top: 11px;
+  width: 55px;
+}
+
+.chatBox {
+  padding: 0 0 50px 0;
+}
+
+.msg_scroll {
+  height: 450px;
+  overflow-y: auto;
+}
