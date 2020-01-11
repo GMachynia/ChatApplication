@@ -15,7 +15,7 @@ export class UserService {
     Email: ['', [Validators.required, Validators.email]],
     FullName: ['', Validators.required],
     Passwords: this.fb.group({
-      Password: ['', [Validators.required, Validators.minLength(8)]],
+      Password: ['', [Validators.required, Validators.minLength(6)]],
       ConfirmPassword: ['', Validators.required]
     }, { validator: this.comparePasswords })
 
