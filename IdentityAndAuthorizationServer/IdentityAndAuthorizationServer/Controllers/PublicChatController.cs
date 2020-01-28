@@ -4,11 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using IdentityAndAuthorizationServer.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using IdentityAndAuthorizationServer.Filters.ExceptionFilter;
 
 namespace IdentityAndAuthorizationServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ServiceFilter(typeof(ExceptionHandler))]
     public class PublicChatController : Controller
     {
         private readonly PublicConversationRepository repository;

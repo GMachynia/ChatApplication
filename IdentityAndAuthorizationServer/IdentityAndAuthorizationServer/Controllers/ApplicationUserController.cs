@@ -8,11 +8,13 @@ using System.Security.Claims;
 using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.Extensions.Options;
+using IdentityAndAuthorizationServer.Filters.ExceptionFilter;
 
 namespace IdentityAndAuthorizationServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ServiceFilter(typeof(ExceptionHandler))]
     public class ApplicationUserController : ControllerBase
     {
         private UserManager<ApplicationUser> userManager { get; set; }

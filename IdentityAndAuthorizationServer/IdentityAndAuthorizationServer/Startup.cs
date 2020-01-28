@@ -18,6 +18,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using IdentityAndAuthorizationServer.SignalR;
 using IdentityAndAuthorizationServer.Repositories;
+using IdentityAndAuthorizationServer.Filters.ActionFilters;
+using IdentityAndAuthorizationServer.Filters.ExceptionFilter;
 
 namespace IdentityAndAuthorizationServer
 {
@@ -36,6 +38,11 @@ namespace IdentityAndAuthorizationServer
             services.AddControllers();
             services.AddDbContext<AuthenticationContext>(options=> {
                 options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection"));
+            });
+            services.AddTransient<ExceptionHandler>();
+            services.AddMvc(option =>
+            {
+                option.Filters.Add(typeof(AddActionLogsFilter));
             });
             services.AddTransient<PublicConversationRepository>();
             services.AddDefaultIdentity<ApplicationUser>()
