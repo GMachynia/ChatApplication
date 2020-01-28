@@ -1,0 +1,56 @@
+   <nav class="navbar navbar-expand-lg navbar-dark bg-dark text-white ">
+    <a class="navbar-brand ">Chat application</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto ">
+        <li class="nav-item active">
+          <a class="nav-link " routerLink="/chat" routerLinkActive="active" >Public Chat </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="onLogout() "routerLinkActive="active">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container mt-4">  
+    <div class="chatBox text-center mt-3">  
+      <div class="inBox">  
+        <div class="mesgs ">  
+          <div class="msg_scroll ">  
+            <div *ngFor="let msg of history">  
+              <div class="messageBox text-break">  
+                <span class="sender"><b>{{msg.sender}}</b></span>  
+                <p>                  
+                 {{msg.message}}   
+                </p>  
+                <span class="time_date"> {{msg.date | date:'medium'}} </span>  
+              </div>  
+            </div>  
+
+            <div *ngFor="let msg of messages">  
+                <div class="messageBox text-break">  
+                  <span class="sender"><b>{{msg.sender}}</b></span>  
+                  <p>                  
+                   {{msg.message}}   
+                  </p>  
+                  <span class="time_date"> {{msg.date | date:'medium'}} </span>  
+                </div>  
+              </div>  
+            </div>  
+     
+        
+          <div class="type_msg">  
+            <div class="input_msg_write">  
+              <input type="text" class="write_msg ml-3" [value]="txtMessage"  
+              (input)="txtMessage=$event.target.value" (keydown.enter)="sendMessage()" placeholder="Type a message" />  
+              <button class="msg_send_btn mr-4" type="button"  (click)="sendMessage()"><i class="fa fa-paper-plane-o" aria-hidden="true">Send</i></button>  
+            </div>  
+          </div>  
+        </div>  
+      </div>  
+    
+    </div>  
+  </div>  
