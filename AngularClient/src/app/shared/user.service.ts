@@ -1,24 +1,25 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { HttpClient } from "@angular/common/http";
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
 
-  constructor(private fb: FormBuilder, private http: HttpClient) { }
+export class UserService {
   readonly BaseURI = 'http://localhost:5000/api';
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) { }
+ 
 
   formModel = this.fb.group({
     UserName: ['', Validators.required],
     Email: ['', [Validators.required, Validators.email]],
     FullName: ['', Validators.required],
     Passwords: this.fb.group({
-      Password: ['', [Validators.required, Validators.minLength(6)]],
+      Password: ['', [Validators.required, Validators.minLength(8)]],
       ConfirmPassword: ['', Validators.required]
     }, { validator: this.comparePasswords })
-
   });
 
   comparePasswords(fb: FormGroup) {
@@ -44,4 +45,10 @@ export class UserService {
   login(formData) {
     return this.http.post(this.BaseURI + '/ApplicationUser/Login', formData);
   }
+
+  logout() {
+    localStorage.removeItem('userName');
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
+  } 
 }

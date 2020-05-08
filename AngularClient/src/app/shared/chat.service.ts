@@ -1,4 +1,4 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { EventEmitter, Injectable, OnInit } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
 import { Message } from '../models/message';
 import { HttpClient } from '@angular/common/http';
@@ -9,17 +9,12 @@ export class ChatService {
   connectionEstablished = new EventEmitter<Boolean>();
   readonly BaseURI = 'http://localhost:5000/api';
   
-  private connectionIsEstablished = false;
   private _hubConnection: HubConnection;
 
   constructor(private http: HttpClient) {
     this.createConnection();
     this.registerOnServerEvents();
     this.startConnection();
-  }
-
-  sendMessage(message: Message) {
-    this._hubConnection.invoke('NewMessage', message);
   }
 
   private createConnection() {
@@ -33,22 +28,30 @@ export class ChatService {
       .start()
       .then(() => {
         this.connectionEstablished.emit(true);
-        this.connectionIsEstablished = true;
-        console.log('Hub connection started');
-        
+        console.log('Hub connection started');    
       })
-      .catch(err => {
+      .catch(error => {
         console.log('Error while establishing connection, retrying...');
         setTimeout(function () { this.startConnection(); }, 5000);
       });
-  }
-  getHistoryOfMessages() {
-    return this.http.get(this.BaseURI + '/PublicChat/MessagesHistory');
   }
 
   private registerOnServerEvents(): void {
     this._hubConnection.on('MessageReceived', (data: any) => {
       this.messageReceived.emit(data);
     });
+  }
+
+  
+  sendMessage(message: Message) {
+    this._hubConnection.invoke('NewMessage', message);
+  }
+  
+  
+   getHistoryOfMessages() {
+    return this.http.get(this.BaseURI + '/PublicChat/MessagesHistory');
+  }
+  stopSignalR(){
+    this._hubConnection.stop();
   }
 }  

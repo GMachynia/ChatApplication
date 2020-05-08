@@ -7,26 +7,18 @@
 }
 .messageBox p {
   background: #3c0daa none repeat scroll 0 0;
-  border-radius: 3px;
+  border-radius: 5px;
   color: #e7dbdb;
   font-size: 14px;
   margin: auto;
   padding: 5px 10px 5px 12px;
   width: 70%;
 }
-
 .time_date {
   color: black;
   display: block;
   font-size: 12px;
   margin: 0px 0 5px;
-}
-
-.sender {
-  color: rgb(20, 7, 7);
-  display: block;
-  font-size: 16px;
-  margin: 5px;
 }
 
 .received_withd_msg {

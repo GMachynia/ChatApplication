@@ -7,14 +7,14 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styles: []
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
   formModel = {
     UserName: '',
     Password: ''
   }
-  constructor(private service: UserService, private router: Router, private toastr: ToastrService) { }
+  constructor(private userService: UserService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit() {
     if (localStorage.getItem('token') != null)
@@ -22,17 +22,18 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    this.service.login(form.value).subscribe(
-      (res: any) => {
+    this.userService.login(form.value).subscribe(
+      (response: any) => {
         localStorage.setItem('userName', this.formModel.UserName);
-        localStorage.setItem('token', res.token);
+        localStorage.setItem('token', response.token);
         this.router.navigateByUrl('/chat');
+        this.toastr.success(this.formModel.UserName, 'Welcome');
       },
-      err => {
-        if (err.status == 400)
+      error => {
+        if (error.status == 400)
           this.toastr.error('Incorrect username or password.', 'Authentication failed.');
         else
-          console.log(err);
+          console.log(error);
       }
     );
   }

@@ -20,9 +20,9 @@
       <div class="inBox">  
         <div class="mesgs ">  
           <div class="msg_scroll ">  
-            <div *ngFor="let msg of history">  
-              <div class="messageBox text-break">  
-                <span class="sender"><b>{{msg.sender}}</b></span>  
+            <div *ngFor="let msg of history" >  
+              <div class="messageBox text-break" >  
+                <span><b>{{msg.sender}}</b></span>  
                 <p>                  
                  {{msg.message}}   
                 </p>  
@@ -32,16 +32,14 @@
 
             <div *ngFor="let msg of messages">  
                 <div class="messageBox text-break">  
-                  <span class="sender"><b>{{msg.sender}}</b></span>  
+                  <span><b>{{msg.sender}}</b></span>  
                   <p>                  
                    {{msg.message}}   
                   </p>  
                   <span class="time_date"> {{msg.date | date:'medium'}} </span>  
                 </div>  
               </div>  
-            </div>  
-     
-        
+            </div>     
           <div class="type_msg">  
             <div class="input_msg_write">  
               <input type="text" class="write_msg ml-3" [value]="txtMessage"  
@@ -51,6 +49,5 @@
           </div>  
         </div>  
       </div>  
-    
     </div>  
   </div>  

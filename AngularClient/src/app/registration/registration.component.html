@@ -24,30 +24,30 @@
       <div class="form-group required">
         <label>Username</label>
         <input class="form-control" formControlName="UserName">
-        <label class="text-danger" *ngIf="service.formModel.get('UserName').touched && service.formModel.get('UserName').errors?.required">This field is required.</label>
+        <label class="text-danger" *ngIf="service.formModel.get('UserName').touched && service.formModel.get('UserName').errors?.required">This field Username is required.</label>
       </div>
       <div class="form-group required">
         <label>Email</label>
         <input class="form-control" formControlName="Email">
         <label class="text-danger" *ngIf="service.formModel.get('Email').touched && service.formModel.get('Email').errors?.email && service.formModel.get('Email').errors?.required">Invalid email address.</label>
-        <label class="text-danger" *ngIf="service.formModel.get('Email').touched && service.formModel.get('Email').errors?.required">This field is required.</label>
+        <label class="text-danger" *ngIf="service.formModel.get('Email').touched && service.formModel.get('Email').errors?.required">This field Email is required.</label>
       </div>
       <div class="form-group required" >
-        <label>Full Name</label>
+        <label>FullName</label>
         <input class="form-control" formControlName="FullName">
-        <label class="text-danger" *ngIf="service.formModel.get('FullName').touched && service.formModel.get('FullName').errors?.required">This field is required.</label>
+        <label class="text-danger" *ngIf="service.formModel.get('FullName').touched && service.formModel.get('FullName').errors?.required">This field FullName is required.</label>
       </div>
       <div formGroupName="Passwords">
         <div class="form-group required">
           <label>Password</label>
           <input type="password" class="form-control" formControlName="Password">
-          <label class="text-danger" *ngIf="service.formModel.get('Passwords.Password').touched && service.formModel.get('Passwords.Password').errors?.required">This field is required.</label>
+          <label class="text-danger" *ngIf="service.formModel.get('Passwords.Password').touched && service.formModel.get('Passwords.Password').errors?.required">This field Password is required.</label>
           <label class="text-danger" *ngIf="service.formModel.get('Passwords.Password').touched && service.formModel.get('Passwords.Password').errors?.minlength">Minimum 8 characters required.</label>
         </div>
         <div class="form-group required">
           <label>Confirm Password</label>
           <input type="password" class="form-control" formControlName="ConfirmPassword">
-          <label class="text-danger" *ngIf="service.formModel.get('Passwords.ConfirmPassword').touched && service.formModel.get('Passwords.ConfirmPassword').errors?.required">This field is required.</label>
+          <label class="text-danger" *ngIf="service.formModel.get('Passwords.ConfirmPassword').touched && service.formModel.get('Passwords.ConfirmPassword').errors?.required">This field ConfirmPassword is required.</label>
           <label class="text-danger" *ngIf="service.formModel.get('Passwords.ConfirmPassword').touched && service.formModel.get('Passwords.ConfirmPassword').errors?.passwordMismatch">Confirm Password does not match.</label>
         </div>
       </div>

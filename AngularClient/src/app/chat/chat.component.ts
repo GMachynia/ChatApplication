@@ -10,38 +10,51 @@ import { takeUntil, map } from 'rxjs/operators';
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
- 
 })
-export class ChatComponent implements OnInit, OnDestroy {
-  title = 'ChatClient';
-  txtMessage: string = '';
-  uniqueID: string = new Date().getTime().toString();
-  messages = new Array<Message>();
-  message = {} as Message;
-  history: Message[]=[];
-  private destroyed$: Subject<void> = new Subject();
 
-  constructor(private router: Router, private service: UserService,private chatService: ChatService,private ngZone: NgZone) { 
-    this.subscribeToEvents();
-  }
+export class ChatComponent implements OnInit, OnDestroy {
+  txtMessage: string;
+  messages:Message[];
+  message: Message;
+  history: Message[];
+  private destroyed$: Subject<void>;
+
+  constructor(private router: Router, private userService: UserService,private chatService: ChatService,private ngZone: NgZone) {}
 
   ngOnInit() {
-    this.chatService.getHistoryOfMessages().pipe(takeUntil(this.destroyed$),map(val => <Message[]>val)).subscribe(res => {
+    this.txtMessage = '';
+    this.message = new Message();
+    this.history = [];
+    this.messages = [];
+    this.destroyed$ = new Subject();
+    
+    this.subscribeToEvents();
+    this.chatService.getHistoryOfMessages().pipe(takeUntil(this.destroyed$),map(val => <Message[]>val))
+    .subscribe(res => {
       this.history = res;
       },
-      err => {
-        console.log(err);
+      error => {
+        console.log(error);
       });
   }
 
   ngOnDestroy() {
     this.destroyed$.next();
     this.destroyed$.complete();
+    this.chatService.stopSignalR();
   }
 
-  sendMessage(): void {
+  private subscribeToEvents(): void {
+    this.chatService.messageReceived
+    .subscribe((message: Message) => {
+      this.ngZone.run(() => {    
+          this.messages.push(message);  
+      });
+    });
+  }
+
+  public sendMessage(): void {
     if (this.txtMessage) {
-      this.message = {} as Message;
       this.message.sender = localStorage.getItem('userName');
       this.message.message = this.txtMessage;
       this.message.date = new Date();
@@ -49,19 +62,9 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.txtMessage = '';
     }
   }
-  private subscribeToEvents(): void {
+  
+  public onLogout(): void {
+  this.userService.logout();
+  } 
 
-    this.chatService.messageReceived.subscribe((message: Message) => {
-      this.ngZone.run(() => {    
-          this.messages.push(message);  
-      });
-    });
-  }
-  
-  onLogout() {
-    localStorage.removeItem('userName');
-    localStorage.removeItem('token');
-    this.router.navigate(['/login']);
-  }
-  
 }
