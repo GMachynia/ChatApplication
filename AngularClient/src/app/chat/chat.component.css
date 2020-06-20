@@ -1,63 +1,160 @@
-
-
+.container {
+  max-height: 60vh;
+}
 .inBox {
-  border: 1px solid #c4c4c4;
   clear: both;
-  overflow: hidden;
+ 
 }
 .messageBox p {
-  background: #3c0daa none repeat scroll 0 0;
+  background: #c36cbb none repeat scroll 0 0;
   border-radius: 5px;
   color: #e7dbdb;
   font-size: 14px;
   margin: auto;
   padding: 5px 10px 5px 12px;
-  width: 70%;
+  width: 40%;
 }
-.time_date {
+.time-date {
   color: black;
   display: block;
   font-size: 12px;
   margin: 0px 0 5px;
 }
 
-.received_withd_msg {
+.received-withd_msg {
   width: 96%;
   margin: auto;
 }
 
-.input_msg_write input {
+.input-msg-write input {
   background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
-  border: medium none;
   color: #0e0a0a;
   font-size: 15px;
   min-height: 48px;
-  width: 100%;
+  width: 65%;
+  margin: auto; 
 }
 
-.type_msg {
-  border-top: 1px solid #e7dbdb;;
+
+textarea:focus, input:focus{
+  outline: none;
+}
+
+.type-msg {
   position: relative;
 }
 
-.msg_send_btn {
-  background: #210661 none repeat scroll 0 0;
-  border: medium none;
-  color: #e7dbdb;;
-  cursor: pointer;
-  font-size: 17px;
-  height: 33px;
-  position: absolute;
-  right: 0;
-  top: 11px;
+.msg-send-btn {
   width: 55px;
+  margin: 20px auto 0px auto;
+	border: 3px solid #c36cbb;
+	background: transparent;
+	color: #c36cbb;
+	width: 150px;
+    height: 45px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+}
+.msg-send-btn:hover{
+  margin: 20px auto 0px auto;
+  background: #c36cbb;
+  width: 150px;
+  height: 45px;
+  cursor: pointer;
+  font-size: 16px;
+  border: none;
+  color: white;
+  border-radius: 4px;
 }
 
 .chatBox {
   padding: 0 0 50px 0;
 }
 
-.msg_scroll {
-  height: 450px;
+.msg-scroll:hover {
+  height: 60vh;
   overflow-y: auto;
+
+}
+.msg-scroll {
+  height: 60vh;
+  overflow-y: hidden;
+}
+button {
+	font-family: 'Poppins', sans-serif;
+}
+
+header {
+	display: flex;
+	width: 90%;
+	height: 10vh;
+	margin: auto;
+	align-items: center;
+}
+
+.logo-container,
+.nav-links
+{
+	display: flex;
+}
+
+.logo-container {
+	flex: 1;
+}
+.logo-label {
+	font-weight: 400;
+	margin: 5px;
+}
+nav {
+	flex: 2;
+}
+.nav-links {
+	justify-content: flex-end;
+	list-style: none;
+}
+
+.nav-link {
+	color: #5f5f79;
+	font-size: 18px;
+	text-decoration: none;
+}
+.nav-link:hover {
+  color:#c36cbb;
+}
+
+.form-container{
+    display: flex;
+    margin: auto;
+    margin-top: 15vh;
+    width: 20%;
+}
+
+.form{
+    flex:1;
+    align-items: center;
+    justify-content: center;
+}
+.submit-button{
+    margin: 20px auto 0px auto;
+	border: 3px solid #c36cbb;
+	background: transparent;
+	color: #c36cbb;
+	width: 150px;
+    height: 45px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+}
+
+.submit-button:hover{
+    margin: 20px auto 0px auto;
+    background: #c36cbb;
+	width: 150px;
+	height: 45px;
+	cursor: pointer;
+	font-size: 16px;
+    border: none;
+    color: white;
+    border-radius: 4px;
 }

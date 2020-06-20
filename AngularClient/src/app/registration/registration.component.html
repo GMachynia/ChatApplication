@@ -1,25 +1,18 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark text-white ">
-  <a class="navbar-brand ">Chat application</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ml-auto ">
-      <li class="nav-item active">
-        <a class="nav-link " routerLink="/registration" routerLinkActive="active" >Sign Up </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/login" routerLinkActive="active">Sign In</a>
-      </li>
-    </ul>
+<header>
+  <div class="logo-container">
+    <h4 class="logo-label">Chat application</h4>
   </div>
-</nav>
+  <nav>
+    <ul class="nav-links">
+      <li><a class="nav-link " routerLink="/registration" routerLinkActive="active" >Sign Up </a></li>
+      <li><a class="nav-link" routerLink="/login" routerLinkActive="active">Sign In</a></li>
+    </ul>
+  </nav>
+</header>
 
 
 <div class="row m-auto">
   <div class="col-md-6 offset-3">
-    <h1 class="text-dark text-center mb-4 mt-4">Registration</h1>
     <form [formGroup]="service.formModel" autocomplete="off" (submit)="onSubmit()">
       <div class="form-group required">
         <label>Username</label>
@@ -52,9 +45,7 @@
         </div>
       </div>
       <div class="form-row">
-        <div class="form-group col-md-8 offset-md-2">
-          <button type="submit" class="btn btn-lg btn-block" [disabled]="!service.formModel.valid">Sign Up</button>
-        </div>
+          <button type="submit" class="submit-button" [disabled]="!service.formModel.valid">Sign Up</button>
       </div>
     </form>
   </div>
