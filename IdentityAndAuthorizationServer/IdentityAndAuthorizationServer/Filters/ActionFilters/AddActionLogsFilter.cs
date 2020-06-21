@@ -13,7 +13,6 @@ namespace IdentityAndAuthorizationServer.Filters.ActionFilters
         public AddActionLogsFilter(ILogger<AddActionLogsFilter> logger)
         {
             this.logger = logger;
-
         }
         public void OnActionExecuted(ActionExecutedContext context)
         {

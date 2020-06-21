@@ -17,7 +17,7 @@ export class UserService {
     Email: ['', [Validators.required, Validators.email]],
     FullName: ['', Validators.required],
     Passwords: this.fb.group({
-      Password: ['', [Validators.required, Validators.minLength(8)]],
+      Password: ['', [Validators.required, Validators.pattern('^((?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])|(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^a-zA-Z0-9])|(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])|(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])).{8,}$')]],
       ConfirmPassword: ['', Validators.required]
     }, { validator: this.comparePasswords })
   });
@@ -51,4 +51,8 @@ export class UserService {
     localStorage.removeItem('token');
     this.router.navigate(['/login']);
   } 
+  
+  setLanguage(lang = "en"){
+    localStorage.setItem('language', lang);
+  }
 }

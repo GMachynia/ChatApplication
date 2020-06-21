@@ -9,23 +9,25 @@ using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.Extensions.Options;
 using IdentityAndAuthorizationServer.Filters.ExceptionFilter;
+using Microsoft.Extensions.Localization;
 
 namespace IdentityAndAuthorizationServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [ServiceFilter(typeof(ExceptionHandler))]
+    [ServiceFilter(typeof(ExceptionHandlerFilter))]
     public class ApplicationUserController : ControllerBase
     {
         private UserManager<ApplicationUser> userManager { get; set; }
-        private  SignInManager<ApplicationUser> signInManager { get; set; }
         private  ApplicationSettings applicationSettings { get; set; }
 
-        public ApplicationUserController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> singInManager, IOptions<ApplicationSettings> applicationSettings)
+        private readonly IStringLocalizer<ApplicationUserController> localizer;
+
+        public ApplicationUserController(UserManager<ApplicationUser> userManager, IOptions<ApplicationSettings> applicationSettings, IStringLocalizer<ApplicationUserController> localizer)
         {
             this.userManager = userManager;
-            this.signInManager = singInManager;
             this.applicationSettings = applicationSettings.Value;
+            this.localizer = localizer;
         }
 
         [HttpPost]
@@ -71,7 +73,7 @@ namespace IdentityAndAuthorizationServer.Controllers
                 return Ok(new { token });
             }
             else
-                return BadRequest(new { message = "Username or password is incorrect." });
+            return BadRequest(new { error = localizer["Username or password is incorrect."].Value });
             }
         }
    }

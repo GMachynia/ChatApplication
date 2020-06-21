@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using IdentityAndAuthorizationServer.Models;
+using IdentityAndAuthorizationServer.RepositoriesInterfaces;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 namespace IdentityAndAuthorizationServer.Repositories
 {
-    public class PublicConversationRepository
+    public class PublicConversationRepository:IPublicConversationRepostory
     {
         private AuthenticationContext context;
         private readonly UserManager<ApplicationUser> userManager;

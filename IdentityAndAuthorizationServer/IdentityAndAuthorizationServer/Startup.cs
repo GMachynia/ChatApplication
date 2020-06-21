@@ -1,15 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using IdentityAndAuthorizationServer.Models;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +14,10 @@ using IdentityAndAuthorizationServer.SignalR;
 using IdentityAndAuthorizationServer.Repositories;
 using IdentityAndAuthorizationServer.Filters.ActionFilters;
 using IdentityAndAuthorizationServer.Filters.ExceptionFilter;
+using IdentityAndAuthorizationServer.RepositoriesInterfaces;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
+using System.Reflection;
 
 namespace IdentityAndAuthorizationServer
 {
@@ -34,22 +32,33 @@ namespace IdentityAndAuthorizationServer
 
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddTransient<IPublicConversationRepostory, PublicConversationRepository>();
+
             services.Configure<ApplicationSettings>(Configuration.GetSection("ApplicationSettings"));
-            services.AddControllers();
+            services.AddControllers(option =>
+            {
+                option.Filters.Add(typeof(AddActionLogsFilter));
+            })
+                .AddDataAnnotationsLocalization(options =>
+
+                 options.DataAnnotationLocalizerProvider = (type, factory) =>
+                 {
+                     var assemblyName = new AssemblyName(typeof(ApplicationUserModel).GetTypeInfo().Assembly.FullName);
+                     return factory.Create("RequestDtos.RequestDtos", assemblyName.Name);
+                 }
+                );
+
             services.AddDbContext<AuthenticationContext>(options=> {
                 options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection"));
             });
-            services.AddTransient<ExceptionHandler>();
-            services.AddMvc(option =>
-            {
-                option.Filters.Add(typeof(AddActionLogsFilter));
-            });
-            services.AddTransient<PublicConversationRepository>();
+            services.AddTransient<ExceptionHandlerFilter>();
+            
             services.AddDefaultIdentity<ApplicationUser>()
                 .AddEntityFrameworkStores<AuthenticationContext>();
 
             services.Configure<IdentityOptions>(options=> {
-                options.Password.RequiredLength=6;
+                options.Password.RequiredLength=8;
             });
             services.AddCors(options =>
             {
@@ -81,21 +90,31 @@ namespace IdentityAndAuthorizationServer
                 };          
             });
             services.AddSignalR();
+            services.AddLocalization(opts => {opts.ResourcesPath = "Resources";});
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var supportedCultures = new[] {
+                    new CultureInfo("en"),
+                    new CultureInfo("pl")
+                };
+                options.DefaultRequestCulture = new RequestCulture("en");
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+            });
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseRequestLocalization();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
             app.UseRouting();
-
             app.UseCors("angularClient");
-
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

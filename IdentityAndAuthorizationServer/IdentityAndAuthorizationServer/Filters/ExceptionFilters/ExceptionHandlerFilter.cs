@@ -8,13 +8,12 @@ using System.Threading.Tasks;
 
 namespace IdentityAndAuthorizationServer.Filters.ExceptionFilter
 {
-    public class ExceptionHandler : IExceptionFilter
+    public class ExceptionHandlerFilter : IExceptionFilter
     {
-        private readonly ILogger<ExceptionHandler> logger;
-        public ExceptionHandler(ILogger<ExceptionHandler> logger)
+        private readonly ILogger<ExceptionHandlerFilter> logger;
+        public ExceptionHandlerFilter(ILogger<ExceptionHandlerFilter> logger)
         {
             this.logger = logger;
-
         }
         public void OnException(ExceptionContext context)
         {

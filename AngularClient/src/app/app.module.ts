@@ -12,8 +12,10 @@ import { ChatComponent } from './chat/chat.component';
 import { MatButtonModule, MatToolbarModule} from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
-import { AuthInterceptor } from './auth/auth.interceptor';
 import { ChatService } from './shared/chat.service';
+import { AuthInterceptor } from './shared/auth/auth.interceptor';
+import { LocalizationInterceptor } from './shared/localization/localization.interceptor';
+
 
 @NgModule({
   declarations: [
@@ -38,11 +40,19 @@ import { ChatService } from './shared/chat.service';
 
        
   ],
-  providers: [UserService, {
+  providers: [
+    UserService, 
+    {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true
-  }, ChatService],
+  }, 
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: LocalizationInterceptor,
+    multi: true
+  },
+  ChatService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
